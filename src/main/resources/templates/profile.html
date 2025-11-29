@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+        }
+        img.avatar {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+        }
+        hr {
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            padding: 5px;
+            width: 80%;
+        }
+        button {
+            padding: 5px 10px;
+            margin-top: 5px;
+        }
+        form {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome, [[${appUser.name}]]!</h1>
+
+<div>
+    <p><strong>Email:</strong> [[${appUser.email}]]</p>
+    <img class="avatar" th:src="${appUser.pictureUrl}" alt="Profile Picture" />
+</div>
+
+<hr>
+
+<div>
+    <p><strong>Login Count:</strong> [[${appUser.loginCount}]]</p>
+    <p>Last Login: <span th:text="${formattedLastLogin}"></span></p>
+</div>
+
+<hr>
+
+<div>
+    <form method="post" th:action="@{/profile/keyphrase}">
+        <label for="keyphrase"><strong>Keyphrase:</strong></label><br>
+        <input type="text" id="keyphrase" name="keyphrase" th:value="${appUser.keyphrase}" />
+        <br>
+        <button type="submit">Update Keyphrase</button>
+    </form>
+</div>
+
+<hr>
+
+<div>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+</body>
+</html>
